@@ -638,6 +638,14 @@ on property:persist.service.usb.setting=4
 service adbd /sbin/adbd
     disabled
 
+# debug log written after boot
+service klog /system/bin/dd if=/proc/kmsg of=/kernel.log bs=1
+    oneshot
+
+service logcat /system/bin/logcat -r 10000 -f /log.txt
+    oneshot
+    user root 
+
 # adbd on at boot in emulator
 on property:ro.kernel.qemu=1
     start adbd

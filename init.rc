@@ -116,6 +116,16 @@ loglevel 3
     # ko files for bthid
     insmod /lib/modules/bthid.ko
 
+	# ko files for snappy
+	insmod /lib/modules/csnappy_decompress.ko
+	insmod /lib/modules/csnappy_compress.ko
+
+	# ko files for zram
+	insmod /lib/modules/zram.ko
+	
+	# ko files for zcache
+	insmod /lib/modules/zcache.ko
+	
     #temp
     chown root root /sbin/fat.format
     chmod 750 /sbin/fat.format

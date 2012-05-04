@@ -155,6 +155,10 @@ on fs
     mount rfs /dev/block/stl9 /system check=no
     mount rfs /dev/block/stl9 /system ro remount
 
+# make zRam swap
+    mkswap /dev/block/zram0
+    swapon /dev/block/zram0
+
 # SEC_DMCRYPT for MC_CRYPT_ROOT before apply_disk_policy or apply_sec_devenc_init
     #chown system system /efs
     #chown radio radio /efs

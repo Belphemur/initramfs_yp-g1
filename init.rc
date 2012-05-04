@@ -116,6 +116,9 @@ loglevel 3
     # ko files for bthid
     insmod /lib/modules/bthid.ko
 
+	# ko file for lzo_compress
+	insmod /lib/modules/lzo_compress.ko
+	
 	# ko files for snappy
 	insmod /lib/modules/csnappy_decompress.ko
 	insmod /lib/modules/csnappy_compress.ko

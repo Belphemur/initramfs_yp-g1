@@ -23,6 +23,7 @@ loglevel 3
     export LOOP_MOUNTPOINT /mnt/obb
     export BOOTCLASSPATH /system/framework/core.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/core-junit.jar
 
+
 # Backward compatibility
     symlink /system/etc /etc
     symlink /sys/kernel/debug /d
@@ -126,6 +127,7 @@ on fs
     # mount yaffs2 mtd@system /system ro remount
     # mount yaffs2 mtd@userdata /data nosuid nodev
     # mount yaffs2 mtd@cache /cache nosuid nodev
+    mount ext4 /dev/block/stl9 /system
     mount rfs /dev/block/stl9 /system check=no
 
     # Temp add for FY -> GB update problem 
@@ -139,6 +141,7 @@ on fs
 		
     exec umount
     
+    mount ext4 /dev/block/stl9 /system
     mount rfs /dev/block/stl9 /system check=no
     mount rfs /dev/block/stl9 /system ro remount
 
@@ -159,13 +162,15 @@ on fs
     mkdir /data
 # SEC_DMCRYPT crypt flag added data
     # mount rfs /dev/block/mmcblk0p2 /data nosuid nodev check=no
-    mount rfs /dev/block/mmcblk0p2 /data nosuid nodev crypt check=no
+    mount ext4 /dev/block/mmcblk0p2 /data nosuid nodev
+    mount rfs /dev/block/mmcblk0p2 /data nosuid nodev check=no
     chown system system /data
     chmod 0771 /data    
 
     mkdir /dbdata
   #SEC_DMCRYPT crypt flag added
-    mount rfs /dev/block/stl10 /dbdata nosuid nodev crypt check=no
+    mount ext4 /dev/block/stl10 /dbdata nosuid nodev
+    mount rfs /dev/block/stl10 /dbdata nosuid nodev check=no
     #mount rfs /dev/block/stl10 /dbdata nosuid nodev check=no
     chown system system /dbdata
     chmod 0771 /dbdata
@@ -179,6 +184,8 @@ on fs
     mkdir /dbdata/db-journal
     chown system system /dbdata/db-journal
     chmod 0777 /dbdata/db-journal
+
+    mount ext4 /dev/block/stl11 /cache nosuid nodev
     mount rfs /dev/block/stl11 /cache nosuid nodev check=no
 
     mkdir /mnt/.lfs 0755 root root
@@ -581,7 +588,7 @@ on boot
 # Define TCP buffer sizes for various networks
 #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
     setprop net.tcp.buffersize.default 4096,87380,196608,4096,16384,110208
-    setprop net.tcp.buffersize.wifi    4095,131072,196608,4096,16384,110208
+    setprop net.tcp.buffersize.wifi    4095,87380,393216,4096,16384,110208
     setprop net.tcp.buffersize.umts    4094,87380,196608,4096,16384,110208
     setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
     setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
@@ -692,7 +699,10 @@ service mobex-daemon /system/bin/npsmobex
     
 service DR-deamon /system/bin/drexe
     user root
-    group system radio inet net_raw     
+    group system radio inet net_raw 
+
+service userinit /sbin/ext/busybox run-parts /system/etc/init.d
+    oneshot    
 
 service zygote /system/bin/app_process -Xzygote /system/bin --zygote --start-system-server
     socket zygote stream 666
@@ -707,7 +717,7 @@ service media /system/bin/mediaserver
     ioprio rt 4
 
 
-service samsungani /system/bin/samsungani
+service samsungani /sbin/bootanimation.sh
     user graphics
     group graphics
     disabled
@@ -808,3 +818,5 @@ service gpsd /system/vendor/bin/gpsd -c /system/vendor/etc/gps.xml
     user gps
     group system inet
 
+on property:sys.boot_completed=1	
+    stop samsungani

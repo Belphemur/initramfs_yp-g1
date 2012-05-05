@@ -125,9 +125,7 @@ loglevel 3
 
 	# ko files for zram
 	insmod /lib/modules/zram.ko
-	
-	# ko files for zcache
-	insmod /lib/modules/zcache.ko
+
 	
     #temp
     chown root root /sbin/fat.format
@@ -140,7 +138,7 @@ on fs
     # mount yaffs2 mtd@system /system ro remount
     # mount yaffs2 mtd@userdata /data nosuid nodev
     # mount yaffs2 mtd@cache /cache nosuid nodev
-    mount ext4 /dev/block/stl9 /system
+    mount ext4 /dev/block/stl9 /system barrier=0 data=ordered noatime
     mount rfs /dev/block/stl9 /system check=no
 
     # Temp add for FY -> GB update problem 
@@ -154,7 +152,7 @@ on fs
 		
     exec umount
     
-    mount ext4 /dev/block/stl9 /system
+    mount ext4 /dev/block/stl9 /system barrier=0 data=ordered noatime
     mount rfs /dev/block/stl9 /system check=no
     mount rfs /dev/block/stl9 /system ro remount
 
@@ -175,7 +173,7 @@ on fs
     mkdir /data
 # SEC_DMCRYPT crypt flag added data
     # mount rfs /dev/block/mmcblk0p2 /data nosuid nodev check=no
-    mount ext4 /dev/block/mmcblk0p2 /data nosuid nodev
+    mount ext4 /dev/block/mmcblk0p2 /data nosuid nodev barrier=0 data=ordered noatime
     mount rfs /dev/block/mmcblk0p2 /data nosuid nodev check=no
     chown system system /data
     chmod 0771 /data    
@@ -198,7 +196,7 @@ on fs
     chown system system /dbdata/db-journal
     chmod 0777 /dbdata/db-journal
 
-    mount ext4 /dev/block/stl11 /cache nosuid nodev
+    mount ext4 /dev/block/stl11 /cache nosuid nodev barrier=0 data=ordered noatime
     mount rfs /dev/block/stl11 /cache nosuid nodev check=no
 
     mkdir /mnt/.lfs 0755 root root
@@ -210,7 +208,9 @@ on fs
 
     # SEC_DMCRYPT efs or cache or lfs partition required
     exec apply_sec_devenc_init
-
+    
+	# ko files for zcache
+	insmod /lib/modules/zcache.ko
 on post-fs
     # once everything is setup, no need to modify /
     mount rootfs rootfs / ro remount

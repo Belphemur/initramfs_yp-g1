@@ -117,7 +117,8 @@ loglevel 3
     insmod /lib/modules/bthid.ko
 
 	# ko file for lzo_compress
-	insmod /lib/modules/lzo_compress.ko
+	# now Build-in
+	# insmod /lib/modules/lzo_compress.ko
 	
 	# ko files for snappy
 	insmod /lib/modules/csnappy_decompress.ko

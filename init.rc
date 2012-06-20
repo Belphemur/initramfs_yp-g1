@@ -119,15 +119,7 @@ loglevel 3
 	# ko file for lzo_compress
 	# now Build-in
 	# insmod /lib/modules/lzo_compress.ko
-	
-	# ko files for snappy
-	insmod /lib/modules/csnappy_decompress.ko
-	insmod /lib/modules/csnappy_compress.ko
 
-	# ko files for zram
-	insmod /lib/modules/zram.ko
-
-	
     #temp
     chown root root /sbin/fat.format
     chmod 750 /sbin/fat.format

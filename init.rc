@@ -120,6 +120,10 @@ loglevel 3
 	# now Build-in
 	# insmod /lib/modules/lzo_compress.ko
 
+	# ko files for zram
+	insmod /lib/modules/zram.ko
+
+	
     #temp
     chown root root /sbin/fat.format
     chmod 750 /sbin/fat.format

@@ -2,5 +2,5 @@
 
 mount /system
 mount /data
-mount /datadata
+mount /dbdata
 mount /cache

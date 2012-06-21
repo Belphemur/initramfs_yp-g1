@@ -115,14 +115,6 @@ loglevel 3
 
     # ko files for bthid
     insmod /lib/modules/bthid.ko
-
-	# ko file for lzo_compress
-	# now Build-in
-	# insmod /lib/modules/lzo_compress.ko
-
-	# ko files for zram
-	insmod /lib/modules/zram.ko
-
 	
     #temp
     chown root root /sbin/fat.format

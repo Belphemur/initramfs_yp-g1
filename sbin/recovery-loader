@@ -1,13 +1,13 @@
 #!/sbin/ext/busybox sh
 
 /sbin/ext/busybox mount -t rootfs -o remount,rw rootfs
-ln -s /sbin/recovery /sbin/busybox
+ln -s /sbin/ext/busybox /sbin/busybox
 
 mount -t ext4 -o rw,noatime,nodiratime,noauto_da_alloc,barrier=1 /dev/block/stl11 /cache >> /dev/null 2>&1
 mount -t rfs -o rw,noatime,nodiratime,check=no /dev/block/stl11 /cache >> /dev/null 2>&1
 
 
-ln -s /sbin/busybox /sbin/sh
+ln -s /sbin/recovery.bin /sbin/sh
 
 start adbd
 stop tvout
@@ -18,5 +18,5 @@ then
   recovery-samsung
 else
   echo 1 > /sbin/recovery-is-running
-  recovery
+  recovery.bin
 fi;

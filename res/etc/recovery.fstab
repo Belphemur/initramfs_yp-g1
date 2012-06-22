@@ -1,6 +1,6 @@
 # mount point	fstype		device			device2	fstype2	fsoptions			fsoptions2
 /sdcard		vfat 		/dev/block/mmcblk0p1
-/system		rfs 		/dev/block/stl9 		NULL  ext4	rw,check=no      			noatime,nodiratime,errors=continue,nobh,data=writeback,barrier=0,noauto_da_alloc
-/cache		rfs 		/dev/block/stl11 		NULL  ext4	rw,nosuid,nodev,check=no	nosuid,nodev,noatime,nodiratime,errors=continue,nobh,data=writeback,barrier=0,noauto_da_alloc
-/data		rfs 		/dev/block/mmcblk0p2 	NULL  ext4	rw,nosuid,nodev,check=no	nosuid,nodev,noatime,nodiratime,errors=continue,nobh,data=writeback,barrier=0,noauto_da_alloc
-/datadata	rfs 		/dev/block/stl10 		NULL  ext4	rw,nosuid,nodev,check=no	nosuid,nodev,noatime,nodiratime,errors=continue,nobh,data=writeback,barrier=0,noauto_da_alloc
+/system		ext4 		/dev/block/stl9 		NULL  rfs	nosuid,nodev,noatime,nodiratime,errors=continue,nobh,data=writeback,barrier=0,noauto_da_alloc	rw,nosuid,nodev,check=no
+/cache		ext4 		/dev/block/stl11 		NULL  rfs	nosuid,nodev,noatime,nodiratime,errors=continue,nobh,data=writeback,barrier=0,noauto_da_alloc	rw,nosuid,nodev,check=no
+/data		ext4 		/dev/block/mmcblk0p2 	NULL  rfs	nosuid,nodev,noatime,nodiratime,errors=continue,nobh,data=writeback,barrier=0,noauto_da_alloc	rw,nosuid,nodev,check=no
+/datadata	ext4 		/dev/block/stl10 		NULL  rfs	nosuid,nodev,noatime,nodiratime,errors=continue,nobh,data=writeback,barrier=0,noauto_da_alloc	rw,nosuid,nodev,check=no

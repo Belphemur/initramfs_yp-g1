@@ -11,7 +11,7 @@
 #index		option
 rfs16	"/sbin/fat.format -F 16 -s 1 -S 4096"
 rfs32	"/sbin/fat.format -F 32 -s 4 -S 4096"
-ext4	"/sbin/mkfs.ext4 -b 4096 -O ^huge_file,^dir_nlink,^ext_attr,^resize_inode,^extra_isize -m 0"
+ext4	"/sbin/mke2fs -t ext4 -b 4096 -O ^huge_file,^dir_nlink,^ext_attr,^resize_inode,^extra_isize -m 0"
 
 [mount]
 #index		flags					options

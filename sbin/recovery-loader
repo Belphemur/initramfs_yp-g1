@@ -8,6 +8,7 @@ mount -t rfs -o rw,noatime,nodiratime,check=no /dev/block/stl11 /cache >> /dev/n
 
 
 ln -s /sbin/recovery /sbin/sh
+ln -s /sbin/recovery /sbin/ls
 
 start adbd
 stop tvout
